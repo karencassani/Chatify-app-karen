@@ -8,6 +8,6 @@ export const socket = io(URL, {
         ackTimeout: 10000,
         retries: 3,
     },
-    // Al quitar el "false" o poner "true", se conecta en cuanto carga el script
+    
     autoConnect: true 
 });
