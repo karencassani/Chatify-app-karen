@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import './App.css'
+import { useEffect } from 'react' //importa el hook useEffect de React
+import './App.css' 
 import { socket } from './socket';
 import ManageConnection from './components/ManageConnection';
 import MyForm from './components/MyForm';
@@ -8,6 +8,7 @@ import Users from './components/Users'
 import Chats from './components/Chats'
 
 function App() {
+  //usa useEffect para realizar la conexion al servidor
   useEffect(() => {
     const onConnect = () => {
       console.log('Conectado al servidor de Chatify');
@@ -24,12 +25,12 @@ function App() {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
     }
-  }, []);
+  }, []); //el segundo argumento vacio asegura que este efecto solo se ejecute una vez 
 
-  // EL RETURN DEBE ESTAR AQUÍ ADENTRO, NO EN LA LÍNEA 1
+
   return (
-    <div className='app-container'>
-      <header className='chat-header'>
+    <div className='app-container'> //contenedor principal de la aplicacion 
+      <header className='chat-header'> //cabecera del chat 
           <h1>Chatify</h1>
           <ManageConnection/>
       </header>
@@ -58,4 +59,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; //exporta el componente App como el componente principal 
