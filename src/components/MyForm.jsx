@@ -1,4 +1,4 @@
-import { socket } from "../../socket";
+import { socket } from "../socket";
 import React, { useState } from "react";
 
 const MyForm = () => {
@@ -9,9 +9,12 @@ const MyForm = () => {
     };
 
         const handleClick = (e) => {
-            e.preventDefault()
-            socket.emit('chat message', message)
-        }
+    e.preventDefault();
+    if (message.trim()) { // Evita mandar mensajes vacíos
+        socket.emit('chat message', message);
+        setMessage(''); // Esto limpia el input después de enviar
+    }
+};
     
     return (
         <div>
