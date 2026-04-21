@@ -29,8 +29,8 @@ function App() {
 
 
   return (
-    <div className='app-container'> //contenedor principal de la aplicacion 
-      <header className='chat-header'> //cabecera del chat 
+    <div className='app-container'> 
+      <header className='chat-header'> 
           <h1>Chatify</h1>
           <ManageConnection/>
       </header>
