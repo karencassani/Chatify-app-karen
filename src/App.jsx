@@ -1,35 +1,61 @@
-return (
-    <>
-      <header className="text-center p-4">
-        <h1 className="text-3xl font-bold">Chatify</h1>
-        <ManageConnection />
+import { useEffect } from 'react'
+import './App.css'
+import { socket } from './socket';
+import ManageConnection from './components/ManageConnection';
+import MyForm from './components/MyForm';
+import Channels from './components/Channels'
+import Users from './components/Users'
+import Chats from './components/Chats'
+
+function App() {
+  useEffect(() => {
+    const onConnect = () => {
+      console.log('Conectado al servidor de Chatify');
+    }
+
+    const onDisconnect = () => {
+      console.log('Desconectado del servidor');
+    }
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+    }
+  }, []);
+
+  // EL RETURN DEBE ESTAR AQUÍ ADENTRO, NO EN LA LÍNEA 1
+  return (
+    <div className='app-container'>
+      <header className='chat-header'>
+          <h1>Chatify</h1>
+          <ManageConnection/>
       </header>
-      
-      {/* Contenedor principal usando Tailwind */}
-      <div className='flex items-start justify-between mt-5 w-full h-screen px-4 gap-4'>
-        
-        {/* Sidebar de Canales */}
-        <aside className='w-1/4 border-2 rounded-lg p-2'>
-          <h2 className="font-bold border-b mb-2">Channels</h2>
-          <Channels />
-        </aside>
 
-        {/* Área Central del Chat */}
-        <main className='w-1/2 border-2 rounded-lg flex flex-col h-[80vh]'>
-          <section className='flex-grow overflow-y-auto p-4'>
-            <Chats />
-          </section>
-          <footer className='p-4 border-t'>
-            <MyForm />
-          </footer>
-        </main>
+      <div className='flex flex-row gap-4'>
+          <aside className='sidebar'>
+            <h2>Channels</h2>
+            <Channels/>
+          </aside>
 
-        {/* Sidebar de Usuarios */}
-        <aside className='w-1/4 border-2 rounded-lg p-2'>
-          <h2 className="font-bold border-b mb-2">Users</h2>
-          <Users />
-        </aside>
+          <main className='chat-main'>
+            <section className='message-area'>
+              <Chats/>
+            </section>
+            <footer className='footer-form'>
+              <MyForm/>
+            </footer>
+          </main>
 
+          <aside className='sidebar'>
+            <h2>Users</h2>
+            <Users/>
+          </aside>
       </div>
-    </>
+    </div>
   );
+}
+
+export default App;
