@@ -1,7 +1,6 @@
 import { io } from 'socket.io-client';
 
-// En Vite se usa import.meta.env.MODE para saber si es producción
-const URL = import.meta.env.MODE === 'production' ? undefined : 'http://localhost:3000';
+const URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
 export const socket = io(URL, {
     auth: {
@@ -9,7 +8,6 @@ export const socket = io(URL, {
         ackTimeout: 10000,
         retries: 3,
     },
-    // Si usas ManageConnection con botones de on/off, 
-    // podrías querer añadir autoConnect: false aquí
-    autoConnect: false 
+    // Al quitar el "false" o poner "true", se conecta en cuanto carga el script
+    autoConnect: true 
 });
