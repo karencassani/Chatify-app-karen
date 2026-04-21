@@ -1,33 +1,26 @@
-import React from 'react'
-import { socket } from '../../socket'
+import React from "react";
+import { socket } from "../../socket";
 
-
-
-function ManageConnection() {
-
-    const handelConnection  = (con) =>{
-        switch(con){
-            case'on':
-            socket.on('connect', onConnect)
-            break
-        case 'off':
-            socket.on('disconnect', onDisconnect)
-            break
-        default:
-            break
+const ManageConnection = () => {
+    const handleConnection = (con) => {
+        console.log({ con });
+        switch (con){
+            case 'on':
+                socket.connect();
+                break
+            case 'off':
+                socket.disconnect();
+                break
+            default:
+                break;
         }
-    }
-
-return (
+    };
+return(
     <div>
-        <button onClick={()=> handleConnection('on')}> Conection</button>
-         <button onClick={()=> handelConnection('off')}> Conection</button>
- 
+        <button onClick={()=>handleConnection ('on')}>Connect</button>
+        <button onClick={()=>handleConnection ('off')}>Disconnect</button>
     </div>
-
-
-
-    )
+)
 }
 
 export default ManageConnection
